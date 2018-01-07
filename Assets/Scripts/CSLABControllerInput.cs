@@ -7,11 +7,11 @@ public class CSLABControllerInput : MonoBehaviour {
 
     //NEW:: a list of all possible buttons that this controller class can take as input:
     protected List<EVRButtonId> buttonsTracked;
-
-    // reference to the TrackedObject class attached to the controller
+   // reference to the TrackedObject class attached to the controller
     protected SteamVR_TrackedObject trackedObj;
     // reference to the Interactable Object we are holding
     protected CSLABBaseInteractableObject heldObject;
+    protected CSLABBaseInteractableObject interactable;
 
     // get the Device -> this accessor method is invoked every time we use the controller variable-
     // so it will always contain the most uptodate info
@@ -33,36 +33,38 @@ public class CSLABControllerInput : MonoBehaviour {
         buttonsTracked = new List<EVRButtonId>()
         {
             EVRButtonId.k_EButton_SteamVR_Trigger,
-            EVRButtonId.k_EButton_Grip
+            EVRButtonId.k_EButton_Grip,
+            EVRButtonId.k_EButton_SteamVR_Touchpad,
+           EVRButtonId.k_EButton_ApplicationMenu
         };
+
+       
     }
 
     //when contoller collides and remains within an obj
     private void OnTriggerStay(Collider other)
     {
         // get the interactableObject instance attatched to the collided object
-        CSLABBaseInteractableObject interactable = other.GetComponent<CSLABBaseInteractableObject>();
+        //interactable = other.GetComponent<CSLABBaseInteractableObject>();
         if (interactable != null)
         {
-            /* if we have pressed down -> pickup
-            if (controller.GetPressDown(EVRButtonId.k_EButton_SteamVR_Touchpad))
-            {
-                //call the method ... 
-                interactable.ButtonDown(this);
-                heldObject = interactable;
-            }*/
-
             /*NEW::  iterate through the list of buttons that this controller is able to receive as input*/
-            for(int i=0; i<buttonsTracked.Count;i++)
+            for(int i = 0; i < buttonsTracked.Count; i++)
             {
                 EVRButtonId button = buttonsTracked[i];
                 /* if this is the button being triggered by the controller 
                  * then invoke the ButtonDown method in the Interactable Object class, 
                  * and pass button  on to the interactable object (to check if this interactable object responds to this button*/
-                if(controller.GetPressDown(button))
+
+                if ( controller.GetPressDown(button) )
                 {
-                    interactable.ButtonDown(button,this);
                     heldObject = interactable;
+                    interactable.ButtonDown(button,  this);
+
+                } else if (button == EVRButtonId.k_EButton_SteamVR_Touchpad && controller.GetTouch(button))
+                {
+                    heldObject = interactable;
+                    interactable.ButtonDown(button, this);
                 }
             }
 
@@ -71,13 +73,13 @@ public class CSLABControllerInput : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-       // Destroy(other.gameObject);
+        interactable = other.GetComponent<CSLABBaseInteractableObject>();
     }
 
     void OnTriggerExit(Collider other)
     {
-        // Destroy everything that leaves the trigger
-        // Destroy(other.gameObject);
+        interactable = null;
+        heldObject = null;
     }
 
     // Update is called once per frame
@@ -88,9 +90,10 @@ public class CSLABControllerInput : MonoBehaviour {
             /*NEW::  iterate through the list of buttons that this controller is able to receive as input*/
             for (int i = 0; i < buttonsTracked.Count; i++)
             {
-                EVRButtonId button = buttonsTracked[i];
-                if (controller.GetPressUp(buttonsTracked[i]))
-                {
+              EVRButtonId button = buttonsTracked[i];
+              
+               if (controller.GetPressUp(button))
+               {
                     heldObject.ButtonUp(button,this);
                     heldObject = null;
                 }

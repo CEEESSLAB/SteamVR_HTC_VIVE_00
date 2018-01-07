@@ -4,7 +4,7 @@ using UnityEngine;
 using Valve.VR;
 public class CSLABColorChildInteractableObject : CSLABBaseInteractableObject
 {
-    EVRButtonId changeColorButton = EVRButtonId.k_EButton_Grip;
+    EVRButtonId changeColorButton = EVRButtonId.k_EButton_SteamVR_Touchpad;
    // public EVRButtonId changeColorButton;
     // pickup method - > we receive the controller Script as an argument
     private List<Color> colorSwatches;
@@ -26,11 +26,12 @@ public class CSLABColorChildInteractableObject : CSLABBaseInteractableObject
         cIndex = 0;
     }
 
-    public override void ButtonDown(EVRButtonId button, CSLABControllerInput controllerRef)
+    public override void ButtonDown(EVRButtonId button,CSLABControllerInput controllerRef)
     {
         if (changeColorButton == button)
         {
-            changeColor(controllerRef);
+           Vector2 axes= controllerRef.controller.GetAxis();
+            changeColor(controllerRef,axes);
         }
     }
 
@@ -41,11 +42,12 @@ public class CSLABColorChildInteractableObject : CSLABBaseInteractableObject
 
     }
 
-    private void changeColor(CSLABControllerInput controllerRef)
+    private void changeColor(CSLABControllerInput controllerRef, Vector2 axes)
     {
-        Debug.Log("THIS IS NOW ACTIVE VIA GRIP:: " + this.gameObject.name);
-        if (cIndex == colorSwatches.Count) { cIndex = 0; }
-        this.gameObject.GetComponent<Renderer>().material.color = colorSwatches[cIndex];
-        cIndex++;
+        Debug.Log("THIS IS NOW ACTIVE VIA TOUCH:: " + axes);
+      //  if (cIndex == colorSwatches.Count) { cIndex = 0; }
+      //  this.gameObject.GetComponent<Renderer>().material.color = colorSwatches[cIndex];
+       // cIndex++;
+      
     }
 }
