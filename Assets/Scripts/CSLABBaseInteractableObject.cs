@@ -27,15 +27,7 @@ public class CSLABBaseInteractableObject : MonoBehaviour
         }
     }
 
-    public virtual void ButtonDown(CSLABControllerInput controllerRef)
-    {
-        // EMPTY WILL BE overriden
-    }
-
-    public virtual void ButtonUp(CSLABControllerInput controllerRef)
-    {
-        // EMPTY WILL BE overriden
-    }
+   
   
     public virtual void ButtonDown(EVRButtonId button, CSLABControllerInput controllerRef)
     {

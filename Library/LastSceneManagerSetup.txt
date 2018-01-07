@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/SteamVRCameraSetup.unity
+- path: Assets/Scenes/SteamVRInteractions.unity
   isLoaded: 1
   isActive: 1

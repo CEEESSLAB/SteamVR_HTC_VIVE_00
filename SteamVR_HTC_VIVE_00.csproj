@@ -318,16 +318,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\AccessVIVEControllers.cs" />
     <Compile Include="Assets\Scripts\CSLABBaseInteractableObject.cs" />
-    <Compile Include="Assets\Scripts\CSLABButtonChildInteractableObject.cs" />
-    <Compile Include="Assets\Scripts\CSLABChildInteractableObject.cs" />
-    <Compile Include="Assets\Scripts\CSLABColorChildInteractableObject.cs" />
     <Compile Include="Assets\Scripts\CSLABControllerInput.cs" />
-    <Compile Include="Assets\Scripts\CSLABRaycastableInteractableObject.cs" />
     <Compile Include="Assets\Scripts\CSLABRaycastInput.cs" />
     <Compile Include="Assets\Scripts\IterationA\ControllerInput.cs" />
     <Compile Include="Assets\Scripts\IterationA\InteractableObject.cs" />
+    <Compile Include="Assets\Scripts\SteamVRInteractions\CSLABButtonChildTouch.cs" />
+    <Compile Include="Assets\Scripts\SteamVRInteractions\CSLABJointedChildGrip.cs" />
+    <Compile Include="Assets\Scripts\SteamVRInteractions\CSLABParentedChildTrigger.cs" />
     <Compile Include="Assets\Scripts\SteamVRTeleportV2\ControllerGrabObject.cs" />
     <Compile Include="Assets\Scripts\SteamVRTeleportV2\LaserPointer.cs" />
     <Compile Include="Assets\Scripts\SteamVRTeleportV2\ViveControlerInputTest.cs" />
