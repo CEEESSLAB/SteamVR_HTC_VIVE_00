@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/SteamVRGaze.unity
+- path: Assets/Scenes/SteamVRTeleportV2.unity
   isLoaded: 1
   isActive: 1
